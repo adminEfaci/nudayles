@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgis:16-3.5-arm64
+    container_name: nudayles-db
+    environment:
+      POSTGRES_DB: nudayles
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: nudayles-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
