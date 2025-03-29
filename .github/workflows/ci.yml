@@ -1,0 +1,72 @@
+name: Fullstack CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  backend:
+    name: Go Backend
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgis/postgis:15-3.3-alpine
+        ports: [5432:5432]
+        env:
+          POSTGRES_DB: nudayles
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports: [6379:6379]
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/nudayles?sslmode=disable
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
+
+      - name: Install dependencies
+        run: cd backend && go mod tidy
+
+      - name: Install Goose
+        run: go install github.com/pressly/goose/v3/cmd/goose@latest
+
+      - name: Run Migrations
+        run: goose -dir backend/migrations postgres "$DATABASE_URL" up
+
+      - name: Run Backend Tests
+        run: cd backend && go test ./...
+
+  frontend:
+    name: Frontend Lint & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: cd frontend && npm install
+
+      - name: Lint & Build
+        run: cd frontend && npm run lint && npm run build
