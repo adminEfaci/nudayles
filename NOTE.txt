@@ -1,7 +1,0 @@
-if attendance.UserID exists in Driver {
-  // ok
-} else if attendance.UserID exists in Loader {
-  // ok
-} else {
-  return error "invalid user ID"
-}
