@@ -1,2 +1,85 @@
 # Ignore embedded repo
 backend/docker-postgis/
+
+# macOS
+.DS_Store
+
+# Local dev notes
+NOTES.txt
+
+# =====================
+# 📦 General
+# =====================
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.tmp
+*.bak
+NOTES.txt
+
+# =====================
+# 🐳 Docker
+# =====================
+.env
+.env.*
+*.env.local
+pgdata/
+dbdata/
+
+# =====================
+# 💻 macOS
+# =====================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =====================
+# 🟢 Go (Backend)
+# =====================
+/backend/bin/
+/backend/go.sum
+/backend/go.work
+/backend/go.work.sum
+/backend/internal/db/query/*.go
+/backend/coverage.out
+
+# Build outputs
+*.exe
+*.test
+*.out
+*.a
+*.o
+
+# IDE tools
+.idea/
+.vscode/
+*.iml
+
+# Goose state (if generated)
+goose_db_version
+
+# =====================
+# 🔵 Node / Frontend (Next.js)
+# =====================
+/frontend/node_modules/
+/frontend/.next/
+/frontend/.turbo/
+/frontend/.env
+/frontend/.env.local
+/frontend/.eslintcache
+/frontend/out/
+
+# Lock files
+/frontend/package-lock.json
+/frontend/yarn.lock
+/frontend/pnpm-lock.yaml
+
+# Log files
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+
+# Editor config
+/frontend/.vscode/
+/frontend/.DS_Store
