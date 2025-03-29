@@ -16,7 +16,7 @@ Thumbs.db
 *.swp
 *.tmp
 *.bak
-NOTES.txt
+NOTE.txt
 
 # =====================
 # 🐳 Docker
